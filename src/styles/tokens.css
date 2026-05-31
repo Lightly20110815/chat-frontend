@@ -1,0 +1,149 @@
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #111322;
+  --bg-deep: #0d0f1c;
+  --bg-soft: #17192b;
+
+  --sidebar: #17182a;
+  --sidebar-border: rgba(180, 170, 255, 0.14);
+
+  --panel: rgba(28, 29, 50, 0.88);
+  --panel-solid: #1c1d32;
+  --panel-hover: rgba(45, 43, 74, 0.9);
+
+  --border: rgba(180, 170, 255, 0.16);
+  --border-strong: rgba(180, 170, 255, 0.32);
+
+  --text: #f4f1ff;
+  --text-muted: #b4aecf;
+  --text-soft: #8983a8;
+
+  --accent: #9b8cff;
+  --accent-hover: #b4a8ff;
+  --accent-soft: rgba(155, 140, 255, 0.18);
+
+  --danger: #ff8b9a;
+  --danger-soft: rgba(255, 139, 154, 0.16);
+  --success: #7fddc1;
+  --success-soft: rgba(127, 221, 193, 0.16);
+  --warning: #f7c97c;
+  --warning-soft: rgba(247, 201, 124, 0.14);
+
+  --input: rgba(17, 18, 33, 0.72);
+  --input-soft: rgba(25, 26, 44, 0.9);
+  --input-focus: rgba(43, 42, 73, 0.96);
+  --code-bg: #0d1325;
+  --code-text: #dce5ff;
+  --overlay: rgba(7, 8, 16, 0.62);
+  --app-gradient:
+    radial-gradient(circle at 36% 18%, rgba(155, 140, 255, 0.14), transparent 32%),
+    radial-gradient(circle at 82% 70%, rgba(90, 140, 255, 0.1), transparent 36%),
+    linear-gradient(180deg, #151629 0%, #111322 48%, #0d0f1c 100%);
+  --sidebar-gradient:
+    linear-gradient(180deg, rgba(22, 23, 41, 0.98) 0%, rgba(18, 19, 34, 0.98) 100%);
+  --toolbar-bg: rgba(18, 19, 34, 0.44);
+  --surface-subtle: rgba(255, 255, 255, 0.03);
+  --surface-subtle-hover: rgba(255, 255, 255, 0.06);
+  --surface-soft: rgba(255, 255, 255, 0.04);
+  --assistant-bubble: rgba(28, 29, 50, 0.86);
+  --danger-text: #ffb7c1;
+  --button-primary-text: #fdfbff;
+  --button-secondary-bg: rgba(255, 255, 255, 0.04);
+  --button-secondary-hover: rgba(255, 255, 255, 0.08);
+  --button-ghost-hover: rgba(255, 255, 255, 0.05);
+  --icon-button-bg: rgba(255, 255, 255, 0.03);
+  --icon-button-hover: rgba(255, 255, 255, 0.07);
+  --table-head-bg: rgba(255, 255, 255, 0.04);
+  --settings-bg: #111322;
+  --settings-panel: rgba(28, 29, 50, 0.94);
+  --settings-panel-soft: rgba(38, 39, 66, 0.72);
+  --settings-border: rgba(180, 170, 255, 0.16);
+  --settings-text: #f4f1ff;
+  --settings-muted: #b4aecf;
+  --settings-accent: #9b8cff;
+  --settings-danger: #ff8b9a;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.22);
+  --shadow-card: 0 22px 70px rgba(0, 0, 0, 0.28);
+
+  --sidebar-width: 312px;
+  --chat-max-width: 860px;
+  --settings-width: 960px;
+
+  --font-sans: 'Avenir Next', 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Cascadia Code', 'SFMono-Regular', Consolas, monospace;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f4f0ff;
+  --bg-deep: #ece7fb;
+  --bg-soft: #ffffff;
+
+  --sidebar: rgba(248, 245, 255, 0.96);
+  --sidebar-border: rgba(101, 84, 180, 0.12);
+
+  --panel: rgba(255, 255, 255, 0.92);
+  --panel-solid: #ffffff;
+  --panel-hover: rgba(244, 239, 255, 0.98);
+
+  --border: rgba(101, 84, 180, 0.12);
+  --border-strong: rgba(101, 84, 180, 0.24);
+
+  --text: #1f1837;
+  --text-muted: #5d537d;
+  --text-soft: #887ca9;
+
+  --accent: #6f61dd;
+  --accent-hover: #8176ec;
+  --accent-soft: rgba(111, 97, 221, 0.14);
+
+  --danger: #d95f75;
+  --danger-soft: rgba(217, 95, 117, 0.14);
+  --success: #1f8f72;
+  --success-soft: rgba(31, 143, 114, 0.12);
+  --warning: #a76b14;
+  --warning-soft: rgba(167, 107, 20, 0.12);
+
+  --input: rgba(250, 248, 255, 0.9);
+  --input-soft: rgba(255, 255, 255, 0.96);
+  --input-focus: rgba(244, 239, 255, 1);
+  --code-bg: #f2effb;
+  --code-text: #2a2552;
+  --overlay: rgba(14, 11, 25, 0.32);
+  --app-gradient:
+    radial-gradient(circle at 24% 16%, rgba(111, 97, 221, 0.15), transparent 28%),
+    radial-gradient(circle at 80% 22%, rgba(110, 162, 255, 0.12), transparent 30%),
+    linear-gradient(180deg, #f8f5ff 0%, #f3efff 46%, #ece8fa 100%);
+  --sidebar-gradient:
+    linear-gradient(180deg, rgba(249, 246, 255, 0.98) 0%, rgba(241, 236, 252, 0.98) 100%);
+  --toolbar-bg: rgba(250, 247, 255, 0.74);
+  --surface-subtle: rgba(111, 97, 221, 0.045);
+  --surface-subtle-hover: rgba(111, 97, 221, 0.085);
+  --surface-soft: rgba(111, 97, 221, 0.06);
+  --assistant-bubble: rgba(255, 255, 255, 0.82);
+  --danger-text: #b44359;
+  --button-primary-text: #ffffff;
+  --button-secondary-bg: rgba(111, 97, 221, 0.06);
+  --button-secondary-hover: rgba(111, 97, 221, 0.11);
+  --button-ghost-hover: rgba(111, 97, 221, 0.08);
+  --icon-button-bg: rgba(111, 97, 221, 0.05);
+  --icon-button-hover: rgba(111, 97, 221, 0.1);
+  --table-head-bg: rgba(111, 97, 221, 0.06);
+  --settings-bg: #f7f5ff;
+  --settings-panel: rgba(255, 255, 255, 0.82);
+  --settings-panel-soft: rgba(255, 255, 255, 0.72);
+  --settings-border: rgba(120, 100, 180, 0.16);
+  --settings-text: #1f1b35;
+  --settings-muted: #69627f;
+  --settings-accent: #7c6cff;
+  --settings-danger: #d95f75;
+}
