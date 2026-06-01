@@ -68,7 +68,7 @@ const { t, providerTypeLabel } = useI18n()
             <button
               type="button"
               class="provider-action"
-              :disabled="provider.id === defaultProviderId"
+              :disabled="provider.id === defaultProviderId || !provider.enabled"
               @click.stop="emit('setDefault', provider.id)"
             >
               {{ t('provider.list.setDefault') }}

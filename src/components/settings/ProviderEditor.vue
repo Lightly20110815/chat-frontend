@@ -64,6 +64,15 @@ watch(
   { immediate: true },
 )
 
+watch(
+  () => form.enabled,
+  (enabled) => {
+    if (!enabled) {
+      form.setAsDefault = false
+    }
+  },
+)
+
 function resetForm(): void {
   form.name = props.provider?.name ?? ''
   form.type = props.provider?.type ?? 'openai-compatible'
@@ -72,7 +81,9 @@ function resetForm(): void {
   form.models = props.provider ? [...props.provider.models] : []
   form.defaultModel = props.provider?.defaultModel ?? ''
   form.enabled = props.provider?.enabled ?? true
-  form.setAsDefault = props.provider ? props.provider.id === props.defaultProviderId : props.defaultProviderId === null
+  form.setAsDefault = props.provider
+    ? props.provider.enabled && props.provider.id === props.defaultProviderId
+    : props.defaultProviderId === null
   showApiKey.value = false
   clearErrors()
   initialSnapshot.value = JSON.stringify(buildSnapshot())
@@ -259,7 +270,7 @@ function save(): void {
         </label>
 
         <label class="option-row">
-          <input v-model="form.setAsDefault" type="checkbox" />
+          <input v-model="form.setAsDefault" type="checkbox" :disabled="!form.enabled" />
           <div>
             <strong>{{ t('provider.editor.defaultProviderTitle') }}</strong>
             <p>{{ t('provider.editor.defaultProviderCopy') }}</p>
