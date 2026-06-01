@@ -2,6 +2,8 @@ import { translate } from '@/i18n/messages'
 import type { ChatRequest, SendChatOptions } from '@/types/chat'
 import { buildUrl, createChatError, readSseStream } from './openaiCompatible'
 
+const DEFAULT_ANTHROPIC_MAX_TOKENS = 1024
+
 export async function sendAnthropicChat(
   request: ChatRequest,
   options: SendChatOptions,
@@ -16,6 +18,7 @@ export async function sendAnthropicChat(
 
   const body: Record<string, unknown> = {
     model: request.model,
+    max_tokens: request.advancedParams?.max_tokens ?? DEFAULT_ANTHROPIC_MAX_TOKENS,
     messages,
     stream: request.stream,
   }
@@ -30,10 +33,6 @@ export async function sendAnthropicChat(
 
   if (request.advancedParams?.top_p !== undefined) {
     body.top_p = request.advancedParams.top_p
-  }
-
-  if (request.advancedParams?.max_tokens !== undefined) {
-    body.max_tokens = request.advancedParams.max_tokens
   }
 
   const response = await fetch(buildUrl(request.provider.baseUrl, 'messages'), {
@@ -89,7 +88,13 @@ export async function sendAnthropicChat(
   const data = (await response.json()) as {
     content?: Array<{ text?: string }>
   }
-  const content = data.content?.[0]?.text ?? ''
+  const content = readAnthropicText(data.content)
   options.onChunk(content)
   return content
+}
+
+function readAnthropicText(content: Array<{ text?: string }> | undefined): string {
+  return content
+    ?.map((block) => (typeof block.text === 'string' ? block.text : ''))
+    .join('') ?? ''
 }

@@ -99,7 +99,10 @@ export async function sendGeminiChat(
 function readGeminiText(payload: Record<string, unknown>): string | null {
   const candidates = Array.isArray(payload.candidates) ? payload.candidates : []
   const firstCandidate = candidates[0] as { content?: { parts?: Array<{ text?: string }> } } | undefined
-  const text = firstCandidate?.content?.parts?.[0]?.text
+  const parts = Array.isArray(firstCandidate?.content?.parts) ? firstCandidate.content.parts : []
+  const text = parts
+    .map((part) => (typeof part.text === 'string' ? part.text : ''))
+    .join('')
 
   return typeof text === 'string' && text.length > 0 ? text : null
 }
