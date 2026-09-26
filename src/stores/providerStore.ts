@@ -19,6 +19,15 @@ export const useProviderStore = defineStore('provider', () => {
     return configuredDefault ?? enabledProviders.value[0] ?? null
   })
 
+  if (
+    settingsStore.settings.defaultProviderId &&
+    !providers.value.some(
+      (provider) => provider.id === settingsStore.settings.defaultProviderId && provider.enabled,
+    )
+  ) {
+    settingsStore.setDefaultProviderId(providers.value.find((provider) => provider.enabled)?.id ?? null)
+  }
+
   function persist(): void {
     saveProviders(providers.value, settingsStore.settings.saveApiKeyLocally)
   }
@@ -104,7 +113,12 @@ export const useProviderStore = defineStore('provider', () => {
   }
 
   function setDefaultProvider(providerId: string | null): void {
-    settingsStore.setDefaultProviderId(providerId)
+    const nextProviderId =
+      providerId && providers.value.some((provider) => provider.id === providerId && provider.enabled)
+        ? providerId
+        : null
+
+    settingsStore.setDefaultProviderId(nextProviderId)
     persist()
   }
 

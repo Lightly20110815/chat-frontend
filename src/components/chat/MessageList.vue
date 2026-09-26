@@ -11,6 +11,9 @@ const scroller = ref<HTMLElement | null>(null)
 
 async function scrollToBottom(smooth = false): Promise<void> {
   await nextTick()
+  await new Promise<void>((resolve) => {
+    window.requestAnimationFrame(() => resolve())
+  })
 
   const node = scroller.value
 
@@ -27,7 +30,7 @@ async function scrollToBottom(smooth = false): Promise<void> {
 watch(
   () => props.messages.map((message) => `${message.id}:${message.content.length}:${message.status}`).join('|'),
   () => {
-    scrollToBottom(true)
+    scrollToBottom()
   },
 )
 
@@ -47,8 +50,9 @@ onMounted(() => {
 <style scoped>
 .message-list {
   flex: 1;
-  overflow-y: auto;
   min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .message-list__inner {

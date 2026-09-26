@@ -199,7 +199,7 @@ async function saveProvider(payload: EditorSavePayload): Promise<void> {
       editorMode.value = 'edit'
       lastSelectedProviderId.value = provider.id
 
-      if (payload.setAsDefault) {
+      if (payload.setAsDefault && provider.enabled) {
         providerStore.setDefaultProvider(provider.id)
       }
 
@@ -207,10 +207,11 @@ async function saveProvider(payload: EditorSavePayload): Promise<void> {
     } else if (selectedProviderId.value) {
       const providerId = selectedProviderId.value
       const wasDefault = settingsStore.settings.defaultProviderId === providerId
+      const shouldSetAsDefault = payload.setAsDefault && payload.draft.enabled
 
       providerStore.updateProvider(providerId, payload.draft)
 
-      if (payload.setAsDefault) {
+      if (shouldSetAsDefault) {
         providerStore.setDefaultProvider(providerId)
       } else if (wasDefault && settingsStore.settings.defaultProviderId === providerId) {
         const fallbackId = providerStore.enabledProviders.find((provider) => provider.id !== providerId)?.id ?? null

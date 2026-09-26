@@ -67,14 +67,16 @@ watch(
 
 async function submit(): Promise<void> {
   composerError.value = null
-  const result = await chatStore.sendMessage(draftMessage.value)
+  const submittedMessage = draftMessage.value
+  draftMessage.value = ''
+
+  const result = await chatStore.sendMessage(submittedMessage)
 
   if (!result.ok) {
     composerError.value = result.error
+    draftMessage.value = submittedMessage
     return
   }
-
-  draftMessage.value = ''
 }
 
 async function regenerate(): Promise<void> {
@@ -162,12 +164,16 @@ function updateModel(model: string): void {
 .chat-view {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
 }
 
 .chat-view__content {
+  display: flex;
   flex: 1;
   min-height: 0;
+  overflow: hidden;
 }
 
 .chat-view__content--empty {

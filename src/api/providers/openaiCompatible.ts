@@ -92,6 +92,31 @@ export async function readSseStream(
   let buffer = ''
   let result = ''
 
+  function processLine(rawLine: string): void {
+    const line = rawLine.trim()
+
+    if (!line.startsWith('data:')) {
+      return
+    }
+
+    const dataString = line.slice(5).trim()
+
+    if (!dataString || dataString === '[DONE]') {
+      return
+    }
+
+    try {
+      const payload = JSON.parse(dataString) as Record<string, unknown>
+      const chunk = readChunk(payload)
+
+      if (chunk) {
+        result += chunk
+      }
+    } catch {
+      return
+    }
+  }
+
   try {
     while (true) {
       const { done, value } = await reader.read()
@@ -105,29 +130,14 @@ export async function readSseStream(
       buffer = lines.pop() ?? ''
 
       for (const rawLine of lines) {
-        const line = rawLine.trim()
-
-        if (!line.startsWith('data:')) {
-          continue
-        }
-
-        const dataString = line.slice(5).trim()
-
-        if (!dataString || dataString === '[DONE]') {
-          continue
-        }
-
-        try {
-          const payload = JSON.parse(dataString) as Record<string, unknown>
-          const chunk = readChunk(payload)
-
-          if (chunk) {
-            result += chunk
-          }
-        } catch {
-          continue
-        }
+        processLine(rawLine)
       }
+    }
+
+    buffer += decoder.decode()
+
+    for (const rawLine of buffer.split('\n')) {
+      processLine(rawLine)
     }
   } catch (error: unknown) {
     if (error instanceof DOMException && error.name === 'AbortError') {
